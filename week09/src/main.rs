@@ -45,7 +45,10 @@ fn main() {
 /// ```
 fn add(_a: i32, _b: i32) -> i32 {
     todo!("Implement add")
+    // You are a Rust programmer. Implement the function that takes two integers and returns their sum.
+    _a + _b
 }
+
 
 /// Returns the product of `a` and `b`.
 ///
@@ -56,7 +59,9 @@ fn add(_a: i32, _b: i32) -> i32 {
 /// ```
 fn multiply(_a: i32, _b: i32) -> i32 {
     todo!("Implement multiply")
+    _a * _b
 }
+
 
 // ============================================================================
 // PART 2: Boolean logic
@@ -71,6 +76,8 @@ fn multiply(_a: i32, _b: i32) -> i32 {
 /// ```
 fn is_even(_n: i32) -> bool {
     todo!("Implement is_even")
+    //You are a Rust programmer. Implement the function that determines if an integer is even (divisible by 2).
+    _n % 2 == 0
 }
 
 // ============================================================================
@@ -87,6 +94,12 @@ fn is_even(_n: i32) -> bool {
 /// ```
 fn max(_a: i32, _b: i32) -> i32 {
     todo!("Implement max")
+    //You are a Rust programmer. Implent the function that takes two integers returns the larger of the two. Return either of them if they are equal.
+    if _a > _b {
+        _a
+    } else {
+        _b
+    }
 }
 
 // ============================================================================
@@ -102,6 +115,8 @@ fn max(_a: i32, _b: i32) -> i32 {
 /// ```
 fn square(_n: i32) -> i32 {
     todo!("Implement square")
+    //You are a Rust programmer. Implement the function that squares an integer (multiplies it by itself).
+    _n * _n
 }
 
 // ============================================================================
@@ -117,6 +132,8 @@ fn square(_n: i32) -> i32 {
 /// ```
 fn reverse_string(_s: &str) -> String {
     todo!("Implement reverse_string")
+    //You are a Rust programmer. Implement the function that takes a string and returns a new String with characters in reverse order.
+    _s.chars().rev().collect()
 }
 
 /// Joins words with the given separator.
@@ -128,6 +145,8 @@ fn reverse_string(_s: &str) -> String {
 /// ```
 fn concat_with_separator(_words: &[&str], _sep: &str) -> String {
     todo!("Implement concat_with_separator")
+    //You are a Rust programmer. Implement the function that joins words with the specified separator. For example, {"hello, "world"} with separator "-" should return "hello-world".
+    _words.join(_sep)
 }
 
 // ============================================================================
@@ -143,6 +162,8 @@ fn concat_with_separator(_words: &[&str], _sep: &str) -> String {
 /// ```
 fn find_max_in_vec(_numbers: &[i32]) -> Option<i32> {
     todo!("Implement find_max_in_vec")
+    //You are a Rust programmer. Implement the function that takes the integers and returns the maximum value. Return None if empty.
+    _numbers.iter().cloned().max()
 }
 
 /// Returns the count of even numbers in the slice.
@@ -154,6 +175,8 @@ fn find_max_in_vec(_numbers: &[i32]) -> Option<i32> {
 /// ```
 fn count_evens(_numbers: &[i32]) -> usize {
     todo!("Implement count_evens")
+    //You are a Rust programmer. Implement the function that returns the count of even numbers in the slice.
+    _numbers.iter().filter(|&&n| n % 2 == 0).count()
 }
 
 // ============================================================================
