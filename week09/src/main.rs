@@ -48,7 +48,6 @@ fn add(_a: i32, _b: i32) -> i32 {
     _a + _b
 }
 
-
 /// Returns the product of `a` and `b`.
 ///
 /// # Examples
@@ -59,7 +58,6 @@ fn add(_a: i32, _b: i32) -> i32 {
 fn multiply(_a: i32, _b: i32) -> i32 {
     _a * _b
 }
-
 
 // ============================================================================
 // PART 2: Boolean logic
