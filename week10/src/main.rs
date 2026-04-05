@@ -56,7 +56,7 @@ fn problem_1() {
     println!("  The length of '{}' is {}.", s1, len);
 }
 
-fn calculate_length(s: &String) -> usize {
+fn calculate_length(s: &str) -> usize {
     s.len()
 }
 
@@ -215,7 +215,7 @@ fn problem_6() {
     }
 }
 
-fn print_with_number(s: &String, n: i32) {
+fn print_with_number(s: &str, n: i32) {
     println!("  {}: {}", n, s);
 }
 
