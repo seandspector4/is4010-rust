@@ -81,9 +81,9 @@ fn problem_2() {
 fn problem_2() {
     println!("Problem 2: Mutable and immutable borrow conflict");
     let mut s = String::from("hello");
-    let r1 = &s;      // immutable borrow
+    let r1 = &s; // immutable borrow
     println!("  Immutable borrow: {}", r1); // Use r1 before mutable borrow
-    let r2 = &mut s;  // mutable borrow — now allowed
+    let r2 = &mut s; // mutable borrow — now allowed
     println!("  Mutable borrow: {}", r2);
 }
 
@@ -183,7 +183,6 @@ fn create_string() -> String {
     String::from("hello")
 }
 
-
 // ============================================================================
 // PROBLEM 6: Ownership in loops
 // ============================================================================
@@ -260,7 +259,6 @@ fn problem_7() {
 pub fn to_uppercase_owned(_s: String) -> String {
     _s.to_uppercase()
 }
-
 
 /// Borrows a String immutably and returns its length.
 ///
