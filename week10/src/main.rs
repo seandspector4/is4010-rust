@@ -18,13 +18,13 @@ fn main() {
     println!("Uncomment one problem at a time and fix it!\n");
 
     // Uncomment problems one at a time after fixing them:
-    // problem_1();
-    // problem_2();
-    // problem_3();
-    // problem_4();
-    // problem_5();
-    // problem_6();
-    // problem_7();
+    problem_1();
+    problem_2();
+    problem_3();
+    problem_4();
+    problem_5();
+    problem_6();
+    problem_7();
 }
 
 // ============================================================================
@@ -48,6 +48,17 @@ fn calculate_length(s: String) -> (String, usize) {
     (s, length)
 }
 */
+//The function above has an error where it tries to use a value aftter ownsership was moved. The fix would be to change calculate_length to borrow ownership instead of taking it. As a rust programmer, implement both fixed functions.
+fn problem_1() {
+    println!("Problem 1: Value used after move");
+    let s1 = String::from("hello");
+    let len = calculate_length(&s1);
+    println!("  The length of '{}' is {}.", s1, len);
+}
+
+fn calculate_length(s: &String) -> usize {
+    s.len()
+}
 
 // ============================================================================
 // PROBLEM 2: Immutable and mutable borrow conflict
@@ -66,6 +77,15 @@ fn problem_2() {
     println!("  {}, {}", r1, r2);
 }
 */
+//The function above has an error where it attempts to create mutable borrow while an immutable borrow exists. The fix would be to ensure that immutable borrows are no longer  used before the creation of a mutable borrow. AS a rust programmer, implement this fix.
+fn problem_2() {
+    println!("Problem 2: Mutable and immutable borrow conflict");
+    let mut s = String::from("hello");
+    let r1 = &s;      // immutable borrow
+    println!("  Immutable borrow: {}", r1); // Use r1 before mutable borrow
+    let r2 = &mut s;  // mutable borrow — now allowed
+    println!("  Mutable borrow: {}", r2);
+}
 
 // ============================================================================
 // PROBLEM 3: Mutating through an immutable reference
@@ -87,6 +107,17 @@ fn add_to_string(s: &String) {
     s.push_str(", world");
 }
 */
+//The function above has an error where it tries to mutate a value through an immutable refernce. To fix this, the variable declaration and function signature need to be changed to use &mut. As a rust programmer, implement this fix.
+fn problem_3() {
+    println!("Problem 3: Mutating through an immutable reference");
+    let mut s = String::from("hello"); // Make s mutable
+    add_to_string(&mut s); // Pass a mutable reference
+    println!("  Result: {}", s);
+}
+
+fn add_to_string(s: &mut String) {
+    s.push_str(", world");
+}
 
 // ============================================================================
 // PROBLEM 4: Multiple mutable borrows
@@ -107,6 +138,19 @@ fn problem_4() {
     println!("  {}, {}", r1, r2);
 }
 */
+//The above function has an error where it creates 2 mutable refernces to the same data simultaneously. The fix would be to use scopes to limit the lifetime of the 1st mutable borrow. As a rust programmer, implement this change.
+fn problem_4() {
+    println!("Problem 4: Multiple mutable borrows");
+    let mut s = String::from("hello");
+
+    {
+        let r1 = &mut s; // First mutable borrow in its own scope
+        println!("  First mutable borrow: {}", r1);
+    } // r1 goes out of scope here, so we can create another mutable borrow
+
+    let r2 = &mut s; // Now this is allowed
+    println!("  Second mutable borrow: {}", r2);
+}
 
 // ============================================================================
 // PROBLEM 5: Dangling reference
@@ -128,6 +172,17 @@ fn create_string() -> &String {
     &s // ERROR: returning reference to local variable
 }
 */
+//The fucntion above has an error where it returns a reference to data that will be dropped at the end of the scope. The fix is to return the owned String rather than a reference. As a rust programmer, implement this change.
+fn problem_5() {
+    println!("Problem 5: Dangling reference");
+    let r = create_string();
+    println!("  Got: {}", r);
+}
+
+fn create_string() -> String {
+    String::from("hello")
+}
+
 
 // ============================================================================
 // PROBLEM 6: Ownership in loops
@@ -151,6 +206,19 @@ fn print_with_number(s: String, n: i32) {
     println!("  {}: {}", n, s);
 }
 */
+//The function above has an error of trying to move a value multiple times in a loop. The fix is to pass a reference rather than transferring the ownership. As a rust programmer, implement this change.
+fn problem_6() {
+    println!("Problem 6: Ownership in loops");
+    let data = String::from("Rust");
+
+    for i in 0..3 {
+        print_with_number(&data, i); // Pass a reference
+    }
+}
+
+fn print_with_number(s: &String, n: i32) {
+    println!("  {}: {}", n, s);
+}
 
 // ============================================================================
 // PROBLEM 7: Lifetime — reference doesn't live long enough
@@ -171,6 +239,13 @@ fn problem_7() {
     println!("  Result: {}", result);
 }
 */
+//The fucntion above has an error where the reference outlives the data it points to. To fix this, move the String declaration out of the inner scope. As a rust programmer, implement this change.
+fn problem_7() {
+    println!("Problem 7: Lifetime extension");
+    let s = String::from("inner scope"); // Move declaration outside the block
+    let result = &s; // Now this reference is valid for the entire function
+    println!("  Result: {}", result);
+}
 
 // ============================================================================
 // PART 2 — Implementation exercises
@@ -183,29 +258,31 @@ fn problem_7() {
 ///
 /// Demonstrates: move in, transform, move out ("consume and return" pattern).
 pub fn to_uppercase_owned(_s: String) -> String {
-    todo!("Implement to_uppercase_owned — hint: .to_uppercase()")
+    _s.to_uppercase()
 }
+
 
 /// Borrows a String immutably and returns its length.
 ///
 /// Demonstrates: read-only borrowing.
 #[allow(clippy::ptr_arg)]
 pub fn string_length(_s: &String) -> usize {
-    todo!("Implement string_length — hint: .len()")
+    _s.len()
 }
 
 /// Borrows a String mutably and appends `suffix` to it in place.
 ///
 /// Demonstrates: in-place mutation through a mutable borrow.
 pub fn append_suffix(_s: &mut String, _suffix: &str) {
-    todo!("Implement append_suffix — hint: .push_str()")
+    
+    _s.push_str(_suffix);
 }
 
 /// Creates a new owned String by concatenating two borrowed string slices.
 ///
 /// Demonstrates: producing owned data from borrowed inputs.
 pub fn concat_strings(_s1: &str, _s2: &str) -> String {
-    todo!("Implement concat_strings — hint: format!() or String::from() + push_str()")
+    format!("{}{}", _s1, _s2)
 }
 
 // ============================================================================
