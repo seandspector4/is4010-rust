@@ -264,7 +264,7 @@ pub fn to_uppercase_owned(_s: String) -> String {
 ///
 /// Demonstrates: read-only borrowing.
 #[allow(clippy::ptr_arg)]
-pub fn string_length(_s: &String) -> usize {
+pub fn string_length(_s: &str) -> usize {
     _s.len()
 }
 
