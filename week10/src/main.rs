@@ -274,7 +274,6 @@ pub fn string_length(_s: &String) -> usize {
 ///
 /// Demonstrates: in-place mutation through a mutable borrow.
 pub fn append_suffix(_s: &mut String, _suffix: &str) {
-    
     _s.push_str(_suffix);
 }
 
