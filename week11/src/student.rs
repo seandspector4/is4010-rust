@@ -46,8 +46,15 @@ pub struct StudentDatabase {
 impl Student {
     /// Creates a new student with the given id, name, and email.
     /// `credits_earned` starts at 0 and `grades` starts empty.
-    pub fn new(_id: String, _name: String, _email: String) -> Student {
-        todo!("Implement Student::new")
+    pub fn new(_id: String, _name: String, _email: String) -> Student { 
+        //This method should return a new Student with the given id, name, and email. The credits_earned field should start at 0 and grades should start empty. Given these requirements, provide the implementation.
+        Student {
+            id: _id,
+            name: _name,
+            email: _email,
+            credits_earned: 0,
+            grades: Vec::new(),
+        }
     }
 
     /// Returns a string describing the student's class standing based on credits:
@@ -56,22 +63,32 @@ impl Student {
     ///   60–89  → "Junior"
     ///   90+    → "Senior"
     pub fn class_standing(&self) -> &str {
-        todo!("Implement class_standing")
+        //This method should return a String describing the students class standing based on credits they have earned. The class standing has the follwoing rules: 0-29 credits is a Freshman, 30-59 credits is a Sophomore, 60-89 credits is a Junior, and 90+ credits is a Senior. Given these rules, provide an implementation.
+        match self.credits_earned {
+            0..=29 => "Freshman",
+            30..=59 => "Sophomore",
+            60..=89 => "Junior",
+            _ => "Senior",
+        }
+
     }
 
     /// Adds `credits` to the student's `credits_earned` total.
     pub fn add_credits(&mut self, _credits: u16) {
-        todo!("Implement add_credits")
+        //This method should add the number of credits passed in as a parameter to the students credits_earned total. Given this rule, implement this.
+        self.credits_earned += _credits;
     }
 
     /// Returns `true` if the student has earned 120 or more credits.
     pub fn can_graduate(&self) -> bool {
-        todo!("Implement can_graduate")
+        //This method returns true if the student has earned 120 credits or more. With this rule, implement the method.
+        self.credits_earned >= 120
     }
 
     /// Appends `course_grade` to the student's `grades` vector.
     pub fn add_grade(&mut self, _course_grade: CourseGrade) {
-        todo!("Implement add_grade")
+        //This method appends the course_grade passed in as a parameter to the students graddes. Given this rule, implement the method.
+        self.grades.push(_course_grade);
     }
 
     /// Returns the student's GPA as a weighted average using quality points.
@@ -79,7 +96,19 @@ impl Student {
     ///
     /// GPA = total quality points / total credit hours
     pub fn calculate_gpa(&self) -> f32 {
-        todo!("Implement calculate_gpa")
+        //This method returns the student's GPA as a weighted average using quality points. Returns 0.0 if the student has no grades. Given these rules, implement the method.
+        if self.grades.is_empty() {
+            return 0.0;
+        }
+
+        let total_quality_points: f32 = self.grades.iter().map(|cg| cg.quality_points()).sum();
+        let total_credits: u16 = self.grades.iter().map(|cg| cg.credits).sum();
+
+        if total_credits == 0 {
+            return 0.0;
+        }
+
+        total_quality_points / total_credits as f32
     }
 }
 
@@ -87,7 +116,14 @@ impl Grade {
     /// Returns the GPA points for this letter grade:
     ///   A → 4.0, B → 3.0, C → 2.0, D → 1.0, F → 0.0
     pub fn to_gpa_points(&self) -> f32 {
-        todo!("Implement to_gpa_points")
+        //This method returns the GPA for a letter grade. A is 4.0, B is 3.0, C is 2.0, D is 1.0, and F is 0.0. Given this, implement the method.
+        match self {
+            Grade::A => 4.0,
+            Grade::B => 3.0,
+            Grade::C => 2.0,
+            Grade::D => 1.0,
+            Grade::F => 0.0,
+        }
     }
 
     /// Parses a grade from a string (case-insensitive).
@@ -100,12 +136,24 @@ impl Grade {
     /// assert_eq!(Grade::from_string("Z"), None);
     /// ```
     pub fn from_string(_s: &str) -> Option<Grade> {
-        todo!("Implement from_string")
+        //This method parses a grade from a string. It is case-sensitive. For unrecognized inputs, it returns None. Given these rules, implement the method.
+        match _s.to_uppercase().as_str() {
+            "A" => Some(Grade::A),
+            "B" => Some(Grade::B),
+            "C" => Some(Grade::C),
+            "D" => Some(Grade::D),
+            "F" => Some(Grade::F),
+            _ => None,
+        }
     }
 
     /// Returns `true` for grades A, B, and C; `false` for D and F.
     pub fn is_passing(&self) -> bool {
-        todo!("Implement is_passing")
+        //This method returns true for A, B, and C. It returns false for D and F. Given this, implement the method.
+            match self {
+                Grade::A | Grade::B | Grade::C => true,
+                Grade::D | Grade::F => false,
+            }
     }
 }
 
@@ -117,51 +165,75 @@ impl CourseGrade {
         _credits: u16,
         _grade: Grade,
     ) -> CourseGrade {
-        todo!("Implement CourseGrade::new")
+        //This method creates a new CourseGrade with the given course code, course name, credits, and grade. With these rules, implement the method.
+            CourseGrade {
+                course_code: _course_code,
+                course_name: _course_name,
+                credits: _credits,
+                grade: _grade,
+            }
     }
 
     /// Returns the quality points for this course: credits × GPA points.
     pub fn quality_points(&self) -> f32 {
-        todo!("Implement quality_points")
+        //This method returns the quality points for the course, shich is calculated as the amount of credits multiplied by the GPA points for the grade. Implement the method.
+        self.credits as f32 * self.grade.to_gpa_points()
     }
 }
 
 impl StudentDatabase {
     /// Creates a new, empty database.
     pub fn new() -> StudentDatabase {
-        todo!("Implement StudentDatabase::new")
+        //This method should create an empty StudentDatabase using HashMap to store students by id. Given this requirement, implement the method.
+        StudentDatabase { students: HashMap::new() }
     }
 
     /// Adds a student to the database.
     /// Returns `Err` if a student with the same id already exists.
     pub fn add_student(&mut self, _student: Student) -> Result<(), String> {
-        todo!("Implement add_student")
+        //This method adds a student to the database. It returns Err is a student with the same id already exists in the database. Given these rules, implemeent this.
+        if self.students.contains_key(&_student.id) {
+            Err(format!("Student with id {} already exists", _student.id))
+        } else {
+            self.students.insert(_student.id.clone(), _student);
+            Ok(())
+        }
     }
 
     /// Returns a reference to the student with the given id, or `None`.
     pub fn find_student(&self, _id: &str) -> Option<&Student> {
-        todo!("Implement find_student")
+        //This method returns a reference to the student with the given id, and None if no student with that id exists. Implement this method.
+        self.students.get(_id)
     }
 
     /// Returns a mutable reference to the student with the given id, or `None`.
     pub fn find_student_mut(&mut self, _id: &str) -> Option<&mut Student> {
-        todo!("Implement find_student_mut")
+        //This method returns a mutable reference to student with given id and None id that no student with that id exists. Based on this, implement the method.
+        self.students.get_mut(_id)
     }
 
     /// Returns the total number of students in the database.
     pub fn student_count(&self) -> usize {
-        todo!("Implement student_count")
+        //This method returns the total amount of students in the database.
+        self.students.len()
     }
 
     /// Returns the average GPA across all students.
     /// Returns 0.0 if there are no students.
     pub fn average_gpa(&self) -> f32 {
-        todo!("Implement average_gpa")
+        //This method returns the average GPA for students in the database. It returns 0.0 is there aren't any students. With these rules, implement the method.
+        if self.students.is_empty() {
+            0.0
+        } else {
+            let total_gpa: f32 = self.students.values().map(|s| s.gpa()).sum();
+            total_gpa / self.students.len() as f32
+        }
     }
 
     /// Returns a vector of references to all students in the database.
     pub fn list_students(&self) -> Vec<&Student> {
-        todo!("Implement list_students")
+        //This method returns a list of references to all students in the database. Implement this method.
+        self.students.values().collect()
     }
 }
 
