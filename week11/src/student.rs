@@ -225,7 +225,7 @@ impl StudentDatabase {
         if self.students.is_empty() {
             0.0
         } else {
-            let total_gpa: f32 = self.students.values().map(|s| s.gpa()).sum();
+            let total_gpa: f32 = self.students.values().map(|s| s.calculate_gpa()).sum();
             total_gpa / self.students.len() as f32
         }
     }
