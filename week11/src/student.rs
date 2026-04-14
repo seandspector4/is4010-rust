@@ -46,7 +46,7 @@ pub struct StudentDatabase {
 impl Student {
     /// Creates a new student with the given id, name, and email.
     /// `credits_earned` starts at 0 and `grades` starts empty.
-    pub fn new(_id: String, _name: String, _email: String) -> Student { 
+    pub fn new(_id: String, _name: String, _email: String) -> Student {
         //This method should return a new Student with the given id, name, and email. The credits_earned field should start at 0 and grades should start empty. Given these requirements, provide the implementation.
         Student {
             id: _id,
@@ -70,7 +70,6 @@ impl Student {
             60..=89 => "Junior",
             _ => "Senior",
         }
-
     }
 
     /// Adds `credits` to the student's `credits_earned` total.
@@ -150,10 +149,10 @@ impl Grade {
     /// Returns `true` for grades A, B, and C; `false` for D and F.
     pub fn is_passing(&self) -> bool {
         //This method returns true for A, B, and C. It returns false for D and F. Given this, implement the method.
-            match self {
-                Grade::A | Grade::B | Grade::C => true,
-                Grade::D | Grade::F => false,
-            }
+        match self {
+            Grade::A | Grade::B | Grade::C => true,
+            Grade::D | Grade::F => false,
+        }
     }
 }
 
@@ -166,12 +165,12 @@ impl CourseGrade {
         _grade: Grade,
     ) -> CourseGrade {
         //This method creates a new CourseGrade with the given course code, course name, credits, and grade. With these rules, implement the method.
-            CourseGrade {
-                course_code: _course_code,
-                course_name: _course_name,
-                credits: _credits,
-                grade: _grade,
-            }
+        CourseGrade {
+            course_code: _course_code,
+            course_name: _course_name,
+            credits: _credits,
+            grade: _grade,
+        }
     }
 
     /// Returns the quality points for this course: credits × GPA points.
@@ -185,7 +184,9 @@ impl StudentDatabase {
     /// Creates a new, empty database.
     pub fn new() -> StudentDatabase {
         //This method should create an empty StudentDatabase using HashMap to store students by id. Given this requirement, implement the method.
-        StudentDatabase { students: HashMap::new() }
+        StudentDatabase {
+            students: HashMap::new(),
+        }
     }
 
     /// Adds a student to the database.
