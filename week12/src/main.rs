@@ -36,33 +36,39 @@ pub struct Stack<T> {
 impl<T> Stack<T> {
     /// Creates a new, empty stack.
     pub fn new() -> Self {
-        todo!("Implement Stack::new")
+        //This method should return a new Stack<T> with a Vec<T> as the data field. The Vec<T> should be empty initially. Using these guidelines, implement the method.
+        Stack { data: Vec::new() }
     }
 
     /// Pushes `item` onto the top of the stack.
     pub fn push(&mut self, _item: T) {
-        todo!("Implement push")
+        //This method should take a self reference and an itpe of type T as parameters. It should append the item to the top of the stack (the end of Vec<t> in the data field). With these rules, implement the method.
+        self.data.push(_item);
     }
 
     /// Removes and returns the top item, or `None` if the stack is empty.
     pub fn pop(&mut self) -> Option<T> {
-        todo!("Implement pop")
+        //This method should take a mutable self reference then remove and return Some(T) from the top. If empty, return None. With these rules, implement the method.
+        self.data.pop()
     }
 
     /// Returns a reference to the top item without removing it,
     /// or `None` if the stack is empty.
     pub fn peek(&self) -> Option<&T> {
-        todo!("Implement peek")
+        //This method should take in a self reference and return an Option<&T> that references the top item without removing it. If the stack is empty, return None. With these guidelines, implement the method.
+        self.data.last()
     }
 
     /// Returns `true` if the stack contains no items.
     pub fn is_empty(&self) -> bool {
-        todo!("Implement is_empty")
+        //This method should take in a self reference and return true if the stack has no items. If not empty, return false. With these rules, implement the method.
+        self.data.is_empty()
     }
 
     /// Returns the number of items in the stack.
     pub fn len(&self) -> usize {
-        todo!("Implement len")
+        //This method takes a self reference and returns the number of items in the stack as a usize variable. With tese guidelines, implement the method.
+        self.data.len()
     }
 }
 
@@ -74,7 +80,16 @@ impl<T> Stack<T> {
 // ============================================================================
 impl<T: fmt::Debug> fmt::Display for Stack<T> {
     fn fmt(&self, _f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        todo!("Implement Display for Stack<T> — hint: write!(f, \"[...]\") using self.data")
+        //This method should implement the Display for Stack<T>. It should format the stack as a String in the form of "[bottom, ..., top]". If the stack is empty, it should return "[]". With these guidelines, implement the method.
+        write!(
+            _f,
+            "[{}]",
+            self.data
+                .iter()
+                .map(|x| format!("{:?}", x))
+                .collect::<Vec<_>>()
+                .join(", ")
+        )
     }
 }
 
