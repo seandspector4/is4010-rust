@@ -41,9 +41,9 @@ pub fn analyze_text(text: &str) -> (usize, f64, String) {
     let total_length: usize = words.iter().map(|w| w.len()).sum();
     let avg = total_length as f64 / count as f64;
     let longest = words
-        .into_iter()
+        .iter()
         .max_by_key(|w| w.len())
-        .unwrap_or("")
+        .unwrap_or(&"")
         .to_string();
 
     (count, avg, longest)
