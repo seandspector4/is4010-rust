@@ -42,7 +42,7 @@ pub fn analyze_text(text: &str) -> (usize, f64, String) {
     let avg = total_length as f64 / count as f64;
     let longest = words
         .iter()
-        .max_by_key(|w| w.len())
+        .max_by(|a, b| a.len().cmp(&b.len()))
         .unwrap_or(&"")
         .to_string();
 
