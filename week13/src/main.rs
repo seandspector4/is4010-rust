@@ -38,13 +38,14 @@ pub fn analyze_text(text: &str) -> (usize, f64, String) {
         return (0, 0.0, String::new());
     }
 
-    let total_length: usize = words.iter().map(|w| w.len()).sum();
-    let avg = total_length as f64 / count as f64;
+    let max_len: usize = words.iter().map(|w| w.len()).max().unwrap_or(0);
     let longest = words
         .iter()
-        .max_by_key(|w| w.len())
+        .find(|w| w.len() == max_len)
         .unwrap_or(&"")
         .to_string();
+
+    let avg = words.iter().map(|w| w.len() as f64).sum::<f64>() / count as f64;
 
     (count, avg, longest)
 }
