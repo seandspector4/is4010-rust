@@ -94,7 +94,7 @@ pub fn check_common_patterns(_password: &str) -> bool {
     {
         return true;
     }
-    COMMON_PASSWORDS.contains(&password)
+    COMMON_PASSWORDS.contains(&password.to_lowercase().as_str())
 }
 
 /// Estimates the Shannon entropy of `password` in bits.
@@ -113,6 +113,9 @@ pub fn calculate_entropy(_password: &str) -> f64 {
     let password = _password;
     let length = password.len() as f64;
 
+    if length == 0.0 {
+        return 0.0;
+    }
     let mut charset_size = 0;
     if password.chars().any(|c| c.is_lowercase()) {
         charset_size = 26;
