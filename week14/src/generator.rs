@@ -30,7 +30,7 @@ pub fn generate_random(_length: usize, _use_symbols: bool) -> String {
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     };
     (0.._length)
-        .map(|_| charset.chars().choose(&mut rng).unwrap())
+        .map(|_| *charset.as_bytes().choose_mut(&mut rng).unwrap() as char)
         .collect()
 }
 
@@ -70,7 +70,12 @@ pub fn generate_passphrase(_word_count: usize, _separator: char) -> String {
 pub fn generate_pin(_length: usize) -> String {
     // For this function, generate a string of numbers of the given length. Use rand::thread_rng() to get a random number and sample from the characters 0 to 9. You can make a string of the allowed characters "0123456789" and randomly select from it to make the PIN.
     let mut rng = rand::thread_rng();
-    (0.._length).map(|_| rng.sample('0'..='9')).collect()
+    (0.._length)
+        .map(|_| {
+            let digit = rng.gen_range(0..10);
+            char::from_digit(digit, 10).unwrap()
+        })
+        .collect()
 }
 
 // A small word list for passphrases.
