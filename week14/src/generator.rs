@@ -29,7 +29,9 @@ pub fn generate_random(_length: usize, _use_symbols: bool) -> String {
     } else {
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     };
-    (0.._length).map(|_| rng.sample(charset.chars())).collect()
+    (0.._length)
+        .map(|_| charset.chars().choose(&mut rng).unwrap())
+        .collect()
 }
 
 /// Generates a passphrase made of `word_count` random common English words joined by `separator`.
