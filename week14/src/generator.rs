@@ -5,8 +5,8 @@
 // The tests at the bottom verify your implementations.
 
 #![allow(dead_code, unused_imports)]
+use rand::seq::SliceRandom;
 use rand::Rng;
-
 /// Generates a random password of the given `length`.
 ///
 /// The character set is:
@@ -30,7 +30,7 @@ pub fn generate_random(_length: usize, _use_symbols: bool) -> String {
         "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     };
     (0.._length)
-        .map(|_| *charset.as_bytes().choose_mut(&mut rng).unwrap() as char)
+        .map(|_| *charset.as_bytes().choose(&mut rng).unwrap() as char)
         .collect()
 }
 
