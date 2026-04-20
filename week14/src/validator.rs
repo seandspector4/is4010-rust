@@ -44,7 +44,40 @@ impl fmt::Display for PasswordStrength {
 ///   5–6 → Strong
 ///   7   → VeryStrong
 pub fn validate_strength(_password: &str) -> PasswordStrength {
-    todo!("Implement validate_strength")
+    //This function should score the password strength based on the criteria given. You can use if statements to check each criteria and add to the score.
+    let mut score = 0;
+    let password = _password;
+    let length = password.len();
+
+    if length >= 8 {
+        score += 1;
+    }
+    if length >= 12 {
+        score += 1;
+    }
+    if length >= 16 {
+        score += 1;
+    }
+    if password.chars().any(|c| c.is_lowercase()) {
+        score += 1;
+    }
+    if password.chars().any(|c| c.is_uppercase()) {
+        score += 1;
+    }
+    if password.chars().any(|c| c.is_ascii_digit()) {
+        score += 1;
+    }
+    if password.chars().any(|c| !c.is_ascii_alphanumeric()) {
+        score += 1;
+    }
+
+    match score {
+        0..=2 => PasswordStrength::Weak,
+        3..=4 => PasswordStrength::Medium,
+        5..=6 => PasswordStrength::Strong,
+        7 => PasswordStrength::VeryStrong,
+        _ => PasswordStrength::Weak,
+    }
 }
 
 /// Returns `true` if `password` matches a common weak pattern.
@@ -53,7 +86,15 @@ pub fn validate_strength(_password: &str) -> PasswordStrength {
 ///   - All characters are the same (e.g. "aaaa", "1111")
 ///   - The password is one of the 10 common passwords listed in COMMON_PASSWORDS
 pub fn check_common_patterns(_password: &str) -> bool {
-    todo!("Implement check_common_patterns")
+    //This function should check for common weak patterns. If all characterers are identical, return true. Also, check if the password (case-sensitive) is in COMMON_PASSWORDS.
+    let password = _password;
+    if password
+        .chars()
+        .all(|c| c == password.chars().next().unwrap_or_default())
+    {
+        return true;
+    }
+    COMMON_PASSWORDS.contains(&password)
 }
 
 /// Estimates the Shannon entropy of `password` in bits.
@@ -68,7 +109,25 @@ pub fn check_common_patterns(_password: &str) -> bool {
 ///
 /// Use `f64::log2(charset_size as f64) * length as f64`.
 pub fn calculate_entropy(_password: &str) -> f64 {
-    todo!("Implement calculate_entropy")
+    //This function should calculate the Shannon entropy of the password from the formula. Use the formula to do the calculation: length x log2(carset_size). Also, determine the charset size by checking which character classes are in the password. Use if statements to check for lowercase, uppercase, digits, and symbols to find the charset size.
+    let password = _password;
+    let length = password.len() as f64;
+
+    let mut charset_size = 0;
+    if password.chars().any(|c| c.is_lowercase()) {
+        charset_size = 26;
+    }
+    if password.chars().any(|c| c.is_uppercase()) {
+        charset_size += 26;
+    }
+    if password.chars().any(|c| c.is_ascii_digit()) {
+        charset_size += 10;
+    }
+    if password.chars().any(|c| !c.is_ascii_alphanumeric()) {
+        charset_size += 32; // Assuming 32 non-alphanumeric characters
+    }
+
+    f64::log2(charset_size as f64) * length
 }
 
 /// Ten common passwords to flag as weak patterns.

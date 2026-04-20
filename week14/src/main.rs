@@ -76,23 +76,38 @@ fn main() {
         Commands::Random { length, symbols } => {
             // TODO: call generate_random(length, symbols) and print the result
             // Bonus: also print the entropy using calculate_entropy()
-            todo!("Handle the `random` subcommand")
+            //This arm should call the generate_random function with the arguments length and symbols, and print the result. Also calculate the entropy of the password and print it as well. Print the result using calculate_entropy() from validator.rs.
+            let password = generate_random(length, symbols);
+            let entropy = calculate_entropy(&password);
+            println!("Generated password: {}", password);
+            println!("Entropy: {:.2} bits", entropy);
         }
 
         Commands::Passphrase { words, separator } => {
             // TODO: call generate_passphrase(words, separator) and print the result
-            todo!("Handle the `passphrase` subcommand")
+            let passphrase = generate_passphrase(words, separator);
+            //This arm should call the generate_passphrase function with arguments words and separator. Print the result.
+            println!("Generated passphrase: {}", passphrase);
         }
 
         Commands::Pin { length } => {
             // TODO: call generate_pin(length) and print the result
-            todo!("Handle the `pin` subcommand")
+            let pin = generate_pin(length);
+            //This arm should call the generate_pin function with the argument length. Print the result.
+            println!("Generated PIN: {}", pin);
         }
 
         Commands::Validate { password } => {
             // TODO: call validate_strength(&password) and check_common_patterns(&password)
             // Print the strength and warn if a common pattern is detected
-            todo!("Handle the `validate` subcommand")
+            //This arm should call the validate_strength function with the password argument. Then it should call the check_common_patterns function with the password argumen. Print the result.
+            let strength = validate_strength(&password);
+            let is_common = check_common_patterns(&password);
+            println!("Password: {}", password);
+            println!("Strength: {}", strength);
+            if is_common {
+                println!("Warning: This password uses a common pattern.");
+            }
         }
     }
 }
